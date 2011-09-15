@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="rpn.js">
+		<meta name="developer" content="Paul Straw">
+
+		<style type="text/css">
+			li {
+				margin: 2px 0;
+			}
+		</style>
+
+		<title>rpn.js</title>
+
+		<script src="rpn.js"></script>
+	</head>
+
+	<body>
+		<h1>This is my crappy test page:</h1>
+
+		<ul>
+
+		</ul>
+
+		<script>
+			!function(doc, i) {
+				var ul = doc.getElementsByTagName('ul')[0],
+					tests = {
+							'3 4 +': 7,
+							'3 4 + 1 -': 6,
+							'5 1 2 + 4 * + 3 -': 14,
+							'7 7 + 5 -': 9,
+							'50 50 *': 2500,
+							'16 28 * 37 20 - +': 465,
+							'10 20 /': 0.5,
+							'5.2736 2617.33 *': 13802.751488,
+							'5.2736 2617.33 * 12.212 -': 13790.539488
+						};
+
+				for (test in tests) {
+					var li = doc.createElement('li'),
+						result = test.rpn(),
+						expected = tests[test],
+						passed = result == expected ? 'PASS' : 'FAIL';
+
+					li.innerHTML = test + ' <strong>(' + passed + ': result ' + result + ', expected ' + expected + ')</strong>';
+					ul.appendChild(li);
+				}
+			}(document);
+		</script>
+	</body>
+</html>
